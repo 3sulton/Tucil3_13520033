@@ -1,7 +1,11 @@
 class Puzzle:
     def __init__(self, puzzle):
         self.puzzle = puzzle # list of list of char
-        self.cost = 0 # int
+        self.cost = 9999 # int
+    
+    def __init__(self, puzzle, cost):
+        self.puzzle = puzzle
+        self.cost = cost
 
     def is_solveable(self):
         """
