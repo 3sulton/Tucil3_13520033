@@ -8,12 +8,12 @@ class PriorityQueue:
         self.buffer.append(item)
         self.buffer.sort(key=lambda x: x.cost) # sort by cost in ascending order
     
-    def pop(self):
+    def pop(self) -> Puzzle:
         item = self.buffer[0]
         self.buffer.remove(item)
         return item
     
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return len(self.buffer) == 0
     
     def printQueue(self):

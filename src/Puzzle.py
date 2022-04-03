@@ -1,11 +1,9 @@
 class Puzzle:
-    def __init__(self, puzzle):
-        self.puzzle = puzzle # list of list of char
-        self.cost = 9999 # int
-    
-    def __init__(self, puzzle, cost):
+    def __init__(self, parent, puzzle, cost, depth):
+        self.parent = parent
         self.puzzle = puzzle
         self.cost = cost
+        self.depth = depth
 
     def is_solveable(self):
         """
@@ -45,7 +43,7 @@ class Puzzle:
             if 'x' in col:
                 return row
 
-    def cetak(self):
+    def printPuzzle(self):
         """
         This method prints the puzzle
         :return: None
@@ -63,4 +61,13 @@ class Puzzle:
                         print("| {} ".format(self.puzzle[i][j]), end="")
                 if(j == 3):
                     print("|")
-        print("+----" * 4 + "+")
+
+    def get_tile(self, row, col):
+        """
+        This method returns the tile at the specified position
+        :param row: int
+        :param col: int
+        :return: int
+        """
+        return self.puzzle[row][col]
+        
