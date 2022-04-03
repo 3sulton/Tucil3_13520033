@@ -15,11 +15,10 @@ elif generate_puzzle == 2:
     puzzles = ReadFileConfiguration().puzzles
 
 for puzzle in puzzles:
-    puzzle = Puzzle(None, puzzle, 999, 0)
+    branch_bound = BranchBound()
+    puzzle = Puzzle(None, puzzle, branch_bound.cost(puzzle), 0)
     if not puzzle.is_solveable():
         print("Puzzle cannot be solved")
     else:
-        bb = BranchBound(puzzle)
         print("Puzzle can be solved")
-        print(bb.cost(puzzle))
-        # puzzle.solve()
+        branch_bound.solve(puzzle)

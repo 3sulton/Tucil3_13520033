@@ -1,7 +1,7 @@
 class Puzzle:
-    def __init__(self, parent, puzzle, cost, depth):
+    def __init__(self, parent, matriks, cost, depth):
         self.parent = parent
-        self.puzzle = puzzle
+        self.matriks = matriks
         self.cost = cost
         self.depth = depth
 
@@ -26,7 +26,7 @@ class Puzzle:
         """
         this method to return the sum of number of pieces with that the position of
         """
-        linear_puzzle = [int(number) for row in self.puzzle for number in row if number != 'x']
+        linear_puzzle = [int(number) for row in self.matriks for number in row if number != 'x']
         count = 0
         for i in range(15):
             for j in range(i + 1, 15):
@@ -34,14 +34,25 @@ class Puzzle:
                     count += 1
         return count
 
-    def get_x_row(self):
+    def get_x_row(self) -> int:
         """
         This method returns the x position of the empty space
         :return: list of int
         """
-        for(row, col) in enumerate(self.puzzle):
+        for(row, col) in enumerate(self.matriks):
             if 'x' in col:
                 return row
+
+    def get_x_col(self) -> int:
+        """
+        This method returns the x position of the empty space
+        :return: list of int
+        """
+        row = self.get_x_row()
+        for(col, number) in enumerate(self.matriks[row]):
+            if number == 'x':
+                return col
+
 
     def printPuzzle(self):
         """
@@ -51,16 +62,17 @@ class Puzzle:
         for i in range(4):
             print("+----" * 4 + "+")
             for j in range(4):
-                number = self.puzzle[i][j]
+                number = self.matriks[i][j]
                 if number == 'x':
                     print("|    ", end="")
                 else:
                     if len(number) == 1:
-                        print("| 0{} ".format(self.puzzle[i][j]), end="")
+                        print("| 0{} ".format(self.matriks[i][j]), end="")
                     else:
-                        print("| {} ".format(self.puzzle[i][j]), end="")
+                        print("| {} ".format(self.matriks[i][j]), end="")
                 if(j == 3):
                     print("|")
+        print("+----" * 4 + "+")
 
     def get_tile(self, row, col):
         """
@@ -69,5 +81,15 @@ class Puzzle:
         :param col: int
         :return: int
         """
-        return self.puzzle[row][col]
-        
+        return self.matriks[row][col]
+
+    def printPath(self):
+        """
+        This method prints the path of the puzzle
+        :return: None
+        """
+        if self.parent is None:
+            self.printPuzzle()
+            return
+        self.parent.printPath()
+        self.printPuzzle()
