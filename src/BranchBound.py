@@ -8,6 +8,7 @@ class BranchBound:
                            ['5', '6', '7', '8'],
                            ['9', '10', '11', '12'],
                            ['13', '14', '15', 'x']]
+        self.visited = []
     
     def cost(self, matriks) -> int:
         """
@@ -37,8 +38,9 @@ class BranchBound:
             if 0 <= new_row <= 3 and 0 <= new_col <= 3:
                 child_matriks = copy.deepcopy(puzzle.matriks)
                 child_matriks[x_row][x_col], child_matriks[new_row][new_col] = child_matriks[new_row][new_col], child_matriks[x_row][x_col]
-                child = Puzzle(puzzle, child_matriks, self.cost(child_matriks) + puzzle.depth, puzzle.depth + 1)
-                children.append(child)
+                if child_matriks not in self.visited:
+                    child = Puzzle(puzzle, child_matriks, self.cost(child_matriks) + puzzle.depth, puzzle.depth + 1)
+                    children.append(child)
         return children
 
     def solve(self, puzzleParent):
@@ -47,12 +49,17 @@ class BranchBound:
         """
         self.puzzleParent = puzzleParent
         self.queue.push(puzzleParent)
+        self.count_node = 1
         while (not self.queue.is_empty()):
             puzzle = self.queue.pop()
+            self.visited.append(puzzle.matriks)
             if puzzle.matriks == self.goalPuzzle:
+                print("\n====================================\nSolution found")
                 puzzle.printPath()
+                print("====================================")
                 return
             else:
                 children = self.create_children(puzzle)
                 for child in children:
                         self.queue.push(child)
+                        self.count_node += 1

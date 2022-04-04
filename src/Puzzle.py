@@ -4,35 +4,43 @@ class Puzzle:
         self.matriks = matriks
         self.cost = cost
         self.depth = depth
+        self.parity()
 
     def is_solveable(self):
         """
         This method checks whether the puzzle is solvable or not
         :return: boolean
         """
-        x_row = self.get_x_row()
-        if (self.parity() + x_row + 1) % 2 == 0:
+        if (self.sum_of_kurang + self.X) % 2 == 0:
             return True
         return False
-        # if x_row % 2 == 0:
-        #     return self.kurang() % 2 != 0
-        # else:
-        #     return self.kurang() % 2 == 0
-        # if(self.kurang() + X) % 2 == 0:
-        #     return True
-        # return False
+        
     
     def parity(self):
         """
-        this method to return the sum of number of pieces with that the position of
+        This method calculates the parity of the puzzle
         """
-        linear_puzzle = [int(number) for row in self.matriks for number in row if number != 'x']
-        count = 0
-        for i in range(15):
-            for j in range(i + 1, 15):
-                if linear_puzzle[i] > linear_puzzle[j]:
+        self.linear_puzzle = [number for row in self.matriks for number in row]
+        idx_empty = self.linear_puzzle.index('x')
+        self.linear_puzzle[idx_empty] = '16'
+        self.kurang = []
+        for i in range(16):
+            count = 0
+            for j in range(i + 1, 16):
+                if int(self.linear_puzzle[i]) > int(self.linear_puzzle[j]):
                     count += 1
-        return count
+            self.kurang.append(count)
+        
+        x_row = self.get_x_row()
+        x_col = self.get_x_col()
+        x_spot = x_row + x_col
+        self.sum_of_kurang = 0
+        for i in range(16):
+            self.sum_of_kurang += int(self.kurang[i])
+        if x_spot % 2 == 0:
+            self.X = 0
+        else:
+            self.X = 1
 
     def get_x_row(self) -> int:
         """
@@ -53,6 +61,16 @@ class Puzzle:
             if number == 'x':
                 return col
 
+    def printSolveable(self):
+        for i in range(16):
+            if len(str(i + 1)) == 1:
+                print("0" + str(i + 1), ":", self.kurang[self.linear_puzzle.index(str(i + 1))])
+            else:
+                print(i + 1, ":", self.kurang[self.linear_puzzle.index(str(i + 1))])
+        print("------------------------------------")
+        print("sum of kurang:", self.sum_of_kurang)
+        print("X:", self.X)
+        print("sum of kurang + X:", self.sum_of_kurang + self.X)
 
     def printPuzzle(self):
         """
@@ -73,15 +91,6 @@ class Puzzle:
                 if(j == 3):
                     print("|")
         print("+----" * 4 + "+")
-
-    def get_tile(self, row, col):
-        """
-        This method returns the tile at the specified position
-        :param row: int
-        :param col: int
-        :return: int
-        """
-        return self.matriks[row][col]
 
     def printPath(self):
         """

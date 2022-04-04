@@ -1,18 +1,27 @@
 import os
 
 class ReadFileConfiguration:
-    def __init__(self):
+    def __init__(self, file_name=None):
+        self.file_name = file_name
         self.directory_name = "../tests"
         self.puzzles = self.get_puzzles()
 
-    def get_all_files_in_directory(self, directory):
+    def get_all_files_in_directory(self):
         """
         This method returns a list of all files in a directory
         :param directory: string
         :return: file_name: list of string
         """
-        with os.scandir(directory) as files:
+        with os.scandir(self.directory_name) as files:
             return [file.name for file in files if file.is_file()]
+
+    def get_spesific_file(self, file_name):
+        """
+        This method returns a spesific puzzle file
+        :param file_name: string
+        :return: puzzle: list of list of char
+        """
+        return self.read_puzzle(file_name)
 
     def read_puzzle(self, file_name):
         """
@@ -34,7 +43,9 @@ class ReadFileConfiguration:
         This method returns a list of all puzzle files
         :return: list of puzzle
         """
-        return [self.read_puzzle(file_name) for file_name in self.get_all_files_in_directory(self.directory_name)]
+        if(self.file_name is not None):
+            return [self.get_spesific_file(self.file_name)]
+        return [self.read_puzzle(file_name) for file_name in self.get_all_files_in_directory()]
     
 
     
