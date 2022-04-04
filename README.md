@@ -148,7 +148,7 @@ Project is: _complete_
 
 ## Acknowledgements
 - Pustaka ini dibuat untuk memenuhi Tugas Kecil 3 IF2211 Strategi Algoritma
-- Proyek ini didasarkan pada dokumen [ini](http://www.cs.umsl.edu/~sanjiv/classes/cs5130/lectures/bb.pdf) untuk pemeriksaan reachable puzzle [ini](https://www.geeksforgeeks.org/8-puzzle-problem-using-branch-and-bound/) untuk pendekatan algoritma branch and bound
+- Proyek ini didasarkan pada dokumen [ini](http://www.cs.umsl.edu/~sanjiv/classes/cs5130/lectures/bb.pdf) untuk pemeriksaan reachable puzzle dan artikel [ini](https://www.geeksforgeeks.org/8-puzzle-problem-using-branch-and-bound/) untuk pendekatan algoritma branch and bound
 - Many thanks to Pak Rinaldi Munir selaku pengajar K03 IF2211 Strategi Algoritma
 
 
