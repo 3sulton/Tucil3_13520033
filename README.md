@@ -22,7 +22,7 @@ Program ini akan menampilkan langkah langkah penyelesaian 15-puzzles. Langkah la
 - clone repository github ini dengan mengetikkan di CMD
 
 ```
-git clone https://github.com/3sulton/my-15-puzzles.git
+git clone https://github.com/3sulton/Tucil3_13520033.git
 ```
 - akan muncul folder my-15-puzzles. Arahkan path pada cmd ke dalam folder `src` tersebut dengan menuliskan `cd my-15-puzzles/src`
 
